@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

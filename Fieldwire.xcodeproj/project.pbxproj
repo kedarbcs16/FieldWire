@@ -177,6 +177,7 @@
 				D2954D901FF2519F00E8AA15 /* Resources */,
 				C1E91CC142E97BA71DD0C0F5 /* [CP] Embed Pods Frameworks */,
 				D4FC7975D269273170C269A7 /* [CP] Copy Pods Resources */,
+				D25DE61B20003121008F8919 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -310,6 +311,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fieldwire/Pods-Fieldwire-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D25DE61B20003121008F8919 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 62491ef3351c9af9ed6a5d450025c7f82f982ed7 5b57b864989977843a255dd33570aac95f95c6b4cfb235b230164a01e17d4627";
 		};
 		D4FC7975D269273170C269A7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

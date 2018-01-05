@@ -98,6 +98,29 @@
                                     <action selector="closeBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gO8-ux-DeW"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Py7-AM-WgP">
+                                <rect key="frame" x="0.0" y="-154" width="375" height="190"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="VQ7-jV-k6J"/>
+                                </constraints>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="3M3-uy-u1M">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3M3-uy-u1M" id="5gU-Fo-uxd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="v6W-fr-YTw"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="o1e-t4-yCd"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -106,9 +129,12 @@
                             <constraint firstItem="z4a-Bs-9Ee" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="A6n-E9-7d5"/>
                             <constraint firstItem="Syh-Ux-3Q3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HzZ-f5-BGc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZD6-RS-njK" secondAttribute="trailing" constant="20" id="L47-SU-7Oq"/>
+                            <constraint firstItem="Py7-AM-WgP" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="MMw-5F-A9u"/>
+                            <constraint firstItem="Py7-AM-WgP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rkp-zC-LMB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z4a-Bs-9Ee" secondAttribute="trailing" id="bMB-gl-Ngw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Syh-Ux-3Q3" secondAttribute="trailing" id="co5-hu-DLs"/>
                             <constraint firstItem="ZD6-RS-njK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="eLK-2N-vre"/>
+                            <constraint firstItem="Syh-Ux-3Q3" firstAttribute="top" secondItem="Py7-AM-WgP" secondAttribute="bottom" constant="28" id="g3U-is-fF0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JSf-Bs-uxt" secondAttribute="trailing" id="jCB-tq-JZo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZD6-RS-njK" secondAttribute="bottom" constant="20" id="lYP-zr-HzP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="Syh-Ux-3Q3" secondAttribute="top" id="oNT-x1-fNu"/>
@@ -121,13 +147,15 @@
                     <connections>
                         <outlet property="closeBtn" destination="JSf-Bs-uxt" id="zx8-Da-83x"/>
                         <outlet property="collectionView" destination="z4a-Bs-9Ee" id="kob-La-nYr"/>
+                        <outlet property="historyTableView" destination="Py7-AM-WgP" id="yxb-16-E50"/>
+                        <outlet property="historyTableViewTopConstraint" destination="g3U-is-fF0" id="qjH-FE-Y8m"/>
                         <outlet property="imageView" destination="ZD6-RS-njK" id="dAG-Rw-Y96"/>
                         <outlet property="searchBar" destination="Syh-Ux-3Q3" id="O7b-f6-CdS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-126" y="10"/>
+            <point key="canvasLocation" x="-127.2" y="9.4452773613193415"/>
         </scene>
     </scenes>
     <resources>

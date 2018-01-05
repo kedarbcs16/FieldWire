@@ -8,12 +8,14 @@
 
 #import "ViewController.h"
 #import "CustomCollectionViewCell.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface ViewController ()
 {
     NSMutableArray *imgArray;
     NSString *searchStr;
     UIRefreshControl *refreshControl;
+    NSMutableArray *historyStack;
 }
 @end
 
@@ -23,23 +25,43 @@
     [super viewDidLoad];
     [self.imageView setHidden:YES];
     [self.closeBtn setHidden:YES];
+   // [[Crashlytics sharedInstance] crash];
+//    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    button.frame = CGRectMake(20, 50, 100, 30);
+//    [button setTitle:@"Crash" forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(crashButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:button];
+
     // Do any additional setup after loading the view, typically from a nib.
     //https://api.imgur.com/3/gallery/search?q=cats
     
     imgArray = [[NSMutableArray alloc]init];
+    historyStack = [[NSMutableArray alloc]init];
     searchStr = @"cars";
+    [historyStack addObject:@"cars"];
     [self fetchData:searchStr];
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refershControlAction) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:refreshControl];
     
 }
+//- (IBAction)crashButtonTapped:(id)sender {
+//    [[Crashlytics sharedInstance] crash];
+//}
+
 -(void)refershControlAction{
     [self fetchData:searchStr];
 }
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    self.historyTableViewTopConstraint.constant = -240;
+    
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"test %@",searchText);
     searchStr = searchText;
+    self.historyTableViewTopConstraint.constant = 28;
     [self fetchData:searchStr];
     
 }
@@ -48,6 +70,21 @@
 {
     NSLog(@"end");
     [searchBar resignFirstResponder];
+    self.historyTableViewTopConstraint.constant = 28;
+    if(!searchStr || searchStr.length==0)
+        return;
+    if (![historyStack containsObject:searchStr]) {
+        [historyStack addObject:searchStr];
+    }
+    else
+    {
+        [historyStack removeObject:searchStr];
+        [historyStack addObject:searchStr];
+    }
+    
+    if(historyStack.count>6)
+       [historyStack removeObjectAtIndex:0];
+    [_historyTableView reloadData];
 }
 
 -(void)fetchData:(NSString *)query{
@@ -105,6 +142,40 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Previous Searches";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 24;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(historyStack.count>=6)
+        return 6;
+    else
+        return historyStack.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"historyCell"];
+    cell.textLabel.text = [historyStack objectAtIndex:[historyStack count]-indexPath.row-1 ];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [_searchBar resignFirstResponder];
+    self.historyTableViewTopConstraint.constant = 28;
+    [self fetchData:[historyStack objectAtIndex:[historyStack count]-indexPath.row-1 ]];
+    NSString *temp = [historyStack objectAtIndex:[historyStack count]-indexPath.row-1 ];
+    [historyStack removeObject:temp];
+    [historyStack addObject:temp];
+    [_historyTableView reloadData];
+    
+}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
@@ -124,7 +195,7 @@
     if(urlStr){
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:urlStr]
                           placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                   options:SDWebImageRefreshCached];
+                                   options:SDWebImageProgressiveDownload];
     }
     
     
@@ -142,7 +213,7 @@
         
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:urlStr]
                           placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                   options:SDWebImageRefreshCached];
+                                   options:SDWebImageProgressiveDownload];
         [self.imageView setHidden:false];
         [self.closeBtn setHidden:false];
     }

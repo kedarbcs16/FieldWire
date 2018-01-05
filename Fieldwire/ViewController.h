@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *closeBtn;
+@property (weak, nonatomic) IBOutlet UITableView *historyTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyTableViewTopConstraint;
 
 - (IBAction)closeBtnPressed:(id)sender;
 
